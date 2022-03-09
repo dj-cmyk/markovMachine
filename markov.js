@@ -43,13 +43,12 @@ class MarkovMachine {
   makeText(numWords = 100) {
     this.phrase = []
     this.stringPhrase = ""
-    // To emit realistic-but-random text, we could pick a starting word randomly (say, “in”). Then we would:
-      //get random index from length of this.words, get word at that index
+    this.maxWords = numWords;
+
     let wordsArrLength = this.words.length
     let randStartIndex = Math.floor(Math.random() * (wordsArrLength))
     let startWord = this.words[randStartIndex]
     this.phrase.push(startWord)
-    console.log(this.phrase)
 
     this.getNextWord(startWord)
 
@@ -61,7 +60,8 @@ class MarkovMachine {
     let randWordIndex = Math.floor(Math.random() * (wordArrayLength))
     let nextWord = this.chains[startWord][randWordIndex]
 
-    if (nextWord === null){
+
+    if (nextWord === null || this.phrase.length === this.maxWords){
       this.stringPhrase = this.phrase.join(" ")
       console.log(this.stringPhrase)
       return this.stringPhrase
